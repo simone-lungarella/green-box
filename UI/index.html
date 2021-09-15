@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ZerynthAPP</title>
+    <!-- LOAD JQUERY AND BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- LOAD THE ZERYNTH ADM JS LIBRARY -->
+    <script src="https://api.zerynth.com/zadm/latest/z.js"></script>
+
+  </head>
+  <body>
+		<p id="date" style="font-size:10px; color: white;"></p>
+		<div style="height:120px;"> </div>
+	<div id="Middle">
+		<table id='Ambient_Status'>
+			<tr>
+				<td><img id="TopImage" src='Thermometer.png'></td>
+				<td><p id="Status">TEMPERATURE</p></td>
+				<td><div id = "T" style="background-color:white; border-radius:30%; text-align:center; font-weight: bold;"> </div></td>
+			</tr>
+			<tr>
+				<td><img id="TopImage1" src='Ico-hum.png'></td>
+				<td><p id="Status">HUMIDITY</p></td>
+				<td><div id = "H" style="background-color:white; border-radius:30%; text-align:center; font-weight: bold;"> </div></td>
+			</tr>
+			<tr>
+				<td><img id="TopImage" src="Light-bulb.png"></img></td>
+				<td><p id="Status">BRIGHTNESS</p></td>
+				<td><div > <img id = "L" style="background-color:white;" > </img> </div></td>
+			</tr>
+		</table>
+	</div>
+	<div id="buttons" style = "margin-left: 30px">
+		<button id="b" class="btn btn-primary btn-xs" onclick = "Z.call('irrigation',[1],irrigation_callback)"><p id="I" style="font-weight: bold; font-size:18;"> IRRIGATE </p></button>
+		<button id="b" class="btn btn-danger btn-xs" onclick = "Z.call('opening',[1],opening_callback)"><p id = "O" style="font-weight: bold; font-size:18;"> OPEN DOOR </p></button>
+	</div>
+	<button id = "refresh" onclick ="Z.call('temperature',[1],temperature_callback),Z.call('humidity',[1],humidity_callback),Z.call('brightness',[1], brightness_callback),getDate()"><i class="fa fa-refresh"></i> </button> 
+	<script>
+    //callback for Zerynth brightness method
+    function brightness_callback(msg){
+			var brightLevel = msg.res;
+			if (brightLevel == 0){
+				$("#L").attr("src","darkness.png")
+			}
+			if (brightLevel == 1){
+				$("#L").attr("src","cloudy.png")
+			}
+			if (brightLevel == 2){
+				$("#L").attr("src","sunny.png")
+			}
+			
+		}
+	
+	//callback for Zerynth temperature method
+	function temperature_callback(msg){
+			$("#T").html(msg.res + "°")
+	}
+	
+	function irrigation_callback(msg){
+			$("#I").text(msg.res)
+	}
+	
+	function opening_callback(msg){
+			$("#O").text(msg.res)
+	}
+	
+	//callback for Zerynth humidity method
+	 function humidity_callback(msg){
+		$("#H").html(msg.res + "%")
+	}
+
+    $(document).ready(function() {
+		getDate();	
+    // initialize the Z object
+		Z.init({
+			on_connected:  function(){
+				Z.call('temperature',[1],temperature_callback),
+				Z.call('humidity',[1],humidity_callback),
+				Z.call('brightness',[1],brightness_callback)
+			}
+      })
+    });
+	
+	//the function shows when the last update is done
+	function getDate() {
+			var d = new Date();
+			var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			document.getElementById("date").innerHTML ="Last update: " + months[d.getMonth()] + "  " 
+			+ d.getDate() + "  " + d.getFullYear() + " " + d.getHours() + ":" + Digits2(d.getMinutes());		
+            
+    }
+	
+	function Digits2(number) {
+		return (number < 10 ? '0' : '') + number
+	}
+    </script>
+  </body>
+</html>

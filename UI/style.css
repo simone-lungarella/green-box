@@ -1,0 +1,80 @@
+body{
+	background-image:url("background.jpg");
+
+
+    /* Full height */
+    height: 100%; 
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#middle{
+	position:fixed;
+    width:100%;
+    height:100%;
+}
+h1{
+	text-align:center;
+	font-family :Kapra Neue Pro;
+	font-size : 26;
+	
+}
+#refresh{
+	height:50px;
+	width:50px;
+	border-radius:30%;
+	float:right;
+	outline: none;
+	
+}
+.btn{
+	outline: none;
+}
+
+table, th, td{
+	font-family : Kapra Neue Pro;
+	padding: 8px;
+	height:100px;
+	border-collapse: separate;
+}
+#Ambient_Status{
+	width:100%;
+}
+#b{
+	margin-right:20px;
+	box-shadow: 0px 3px #999;
+	width:120px;
+	
+}
+
+#b:active{
+  box-shadow: 0 1px #666;
+  transform: translateY(2px);
+}
+
+
+#L{
+	margin-left:20px;
+	border-radius:30%;
+	height:35px;
+	width:35px;
+}
+#TopImage{
+	height:30px;
+	width:30px;
+}
+#TopImage1{
+	border-radius:30%;
+	height:25px;
+	width:25px;
+	position : center;
+}
+
+#Status{
+	margin-top:20px;
+	text-align:left;
+	color:white;
+	font-size: 15;
+	font-weight: bold;
+}
