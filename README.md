@@ -1,5 +1,4 @@
-# GreenBox
+<h1 align="center">GreenBox</h1>
+<h3 align="center">Arduino project that let you handle the main functionality of a small green house using your phone</h3>
 
-<img src="https://i.imgur.com/T5dtPIV.png" />
-
-Arduino project that let you handle the main functionality of a small green house using your android phone.
+<p> The project is built with Zerynth and make use of python to handle micro-controller logic. On the other hand, the interface is made with pure html, css and javascript. </p>
